@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "bot",
+    "lavalink-rs"
+]
+
+resolver = "2"

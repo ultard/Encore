@@ -1,0 +1,34 @@
+services:
+  bot:
+    container_name: 'encore-bot'
+    hostname: 'bot'
+    networks:
+      - encore-network
+    restart: unless-stopped
+    depends_on:
+      - lavalink
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: bot
+
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4
+    container_name: 'encore-lavalink'
+    hostname: 'lavalink'
+    networks:
+      - encore-network
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - ./application.yml:/opt/Lavalink/application.yml
+      - ./plugins:/opt/Lavalink/plugins/
+    ports:
+      - 2333:2333
+
+networks:
+  encore-network:
+    driver: bridge
