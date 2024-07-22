@@ -41,7 +41,6 @@ plugins:
       albumLoadLimit: 6 # The number of pages at 50 tracks each
 lavalink:
   server:
-    password: "tVp7~#9hoZ7.ty"
     sources:
       youtube: false
       bandcamp: true

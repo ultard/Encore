@@ -8,10 +8,10 @@ services:
     depends_on:
       - lavalink
     env_file:
-      - ./.env
+      - .env
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
       target: bot
 
   lavalink:
@@ -22,7 +22,7 @@ services:
       - encore-network
     restart: unless-stopped
     env_file:
-      - ./.env
+      - .env
     volumes:
       - ./application.yml:/opt/Lavalink/application.yml
       - ./plugins:/opt/Lavalink/plugins/

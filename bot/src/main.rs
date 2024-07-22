@@ -12,12 +12,15 @@ use lavalink_rs::model;
 
 use poise::serenity_prelude as serenity;
 use songbird::SerenityInit;
+use tracing::warn;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     std::env::set_var("RUST_LOG", "info,lavalink_rs=trace");
     tracing_subscriber::fmt::init();
-    dotenvy::dotenv()?;
+    if dotenvy::dotenv().is_err() {
+        warn!(".env not found, app may crash")
+    };
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
@@ -34,7 +37,7 @@ async fn main() -> Result<(), Error> {
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
 
                 let node_local = NodeBuilder {
-                    hostname: format!("{}:{}", std::env::var("LAVALINK_HOST").expect("host not found"), std::env::var("LAVALINK_PORT").expect("port not found")),
+                    hostname: format!("{}:{}", std::env::var("SERVER_ADDRESS").expect("host not found"), std::env::var("SERVER_PORT").expect("port not found")),
                     is_ssl: false,
                     events: model::events::Events::default(),
                     password: std::env::var("LAVALINK_SERVER_PASSWORD").expect("password not found"),
