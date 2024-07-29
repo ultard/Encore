@@ -16,7 +16,7 @@
 1. Клонируйте репозиторий:
 
     ```sh
-    git clone https://github.com/wuwaru1/encore
+    git clone https://github.com/ultard/encore
     cd encore
     ```
 
